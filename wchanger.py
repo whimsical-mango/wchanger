@@ -5,6 +5,7 @@ import os
 import subprocess as sp
 import sys
 
+# Checks if the background image already exists or not
 image_exists = sp.run(["powershell.exe", "-Command", "Get-ChildItem image* 2>$null"], shell=True, capture_output=True, text=True)
 file_exist = bool(image_exists.stdout.strip())
 
@@ -14,10 +15,10 @@ if file_exist == True:
 class Wallpaper:
     """Starting Variables"""
     def __init__(self):
-        # Public collection's location and Main URLs
+        # Public collection URL
         if len(sys.argv) > 1:
             self.c_url = f"https://wallhaven.cc/api/v1/collections/{sys.argv[1]}"
-
+        # Download URL
         self.url = ""
 
         # Json data
@@ -45,6 +46,7 @@ class Wallpaper:
         with open(self.filename, "wb") as file:
             file.write(response.content)
 
+    """Settings the wallapper"""
     def set_wall(self):
         # Constants
         SPI_SETDESKWALLPAPER = 20
